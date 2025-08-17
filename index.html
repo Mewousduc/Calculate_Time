@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคำนวณเวลาล่วงหน้า - ประเทศไทย</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            box-sizing: border-box;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+        }
+        
+        .current-time {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            .current-time {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+        }
+        
+        .current-time h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        @media (min-width: 768px) {
+            .current-time h2 {
+                font-size: 1.3em;
+            }
+        }
+        
+        .time-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        @media (min-width: 768px) {
+            .time-display {
+                font-size: 2em;
+            }
+        }
+        
+        .date-display {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        @media (min-width: 768px) {
+            .date-display {
+                font-size: 1.2em;
+            }
+        }
+        
+        .input-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+        
+        @media (min-width: 768px) {
+            .input-section {
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .input-group {
+                margin-bottom: 20px;
+            }
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 15px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            background-color: white;
+            min-height: 50px;
+        }
+        
+        /* ซ่อน spinner arrows ใน WebKit browsers */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        @media (min-width: 768px) {
+            input[type="number"] {
+                font-size: 16px;
+                padding: 12px;
+                min-height: auto;
+            }
+        }
+        
+        input[type="number"]:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .input-row {
+                gap: 15px;
+            }
+        }
+        
+        .input-row .input-group {
+            flex: 1;
+        }
+        
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            min-height: 56px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            button {
+                padding: 15px;
+                min-height: auto;
+            }
+        }
+        
+        .result {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            display: none;
+        }
+        
+        .result h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4em;
+        }
+        
+        .result-time {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .result-date {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .help-text {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .timezone-info {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕐 เครื่องคำนวณเวลาล่วงหน้า</h1>
+        
+        <div class="current-time">
+            <h2>⏰ เวลาปัจจุบัน (ประเทศไทย)</h2>
+            <div class="time-display" id="currentTime"></div>
+            <div class="date-display" id="currentDate"></div>
+        </div>
+        
+        <div class="help-text">
+            💡 <strong>วิธีใช้:</strong> ใส่จำนวนวัน ชั่วโมง และ/หรือนาทีที่ต้องการดูล่วงหน้า เช่น ใส่ 1 วัน 2 ชั่วโมง 30 นาที หรือใส่แค่ 90 นาที ก็ได้
+        </div>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="days">วัน (Days)</label>
+                <input type="number" id="days" min="0" placeholder="0" value="0">
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="hours">ชั่วโมง (Hours)</label>
+                    <input type="number" id="hours" min="0" placeholder="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="minutes">นาที (Minutes)</label>
+                    <input type="number" id="minutes" min="0" placeholder="0" value="0">
+                </div>
+            </div>
+            
+            <button onclick="calculateFutureTime()">🔮 คำนวณเวลาล่วงหน้า</button>
+        </div>
+        
+        <div class="result" id="result">
+            <h3>📅 เวลาล่วงหน้า</h3>
+            <div class="result-time" id="futureTime"></div>
+            <div class="result-date" id="futureDate"></div>
+            <div id="timeDifference" style="margin-top: 10px; font-size: 1.1em; opacity: 0.9;"></div>
+        </div>
+        
+        <div class="timezone-info">
+            🌏 เขตเวลา: UTC+7 (เวลาประเทศไทย/อินโดจีน)
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันสำหรับแสดงเวลาปัจจุบันแบบเรียลไทม์
+        function updateCurrentTime() {
+            const now = new Date();
+            // ใช้ Intl.DateTimeFormat เพื่อให้แน่ใจว่าได้เวลาไทยที่ถูกต้อง
+            const thaiTime = new Intl.DateTimeFormat('th-TH', {
+                timeZone: 'Asia/Bangkok',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).format(now);
+            
+            const thaiDate = new Intl.DateTimeFormat('th-TH', {
+                timeZone: 'Asia/Bangkok',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }).format(now);
+            
+            document.getElementById('currentTime').textContent = thaiTime;
+            document.getElementById('currentDate').textContent = thaiDate;
+        }
+        
+        // ฟังก์ชันคำนวณเวลาล่วงหน้า
+        function calculateFutureTime() {
+            const hoursInput = parseInt(document.getElementById('hours').value) || 0;
+            const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
+            
+            if (hoursInput === 0 && minutesInput === 0) {
+                alert('กرุณาใส่จำนวนชั่วโมงหรือนาทีที่ต้องการดูล่วงหน้า');
+                return;
+            }
+            
+            // สร้างวันที่ปัจจุบันในเขตเวลาไทย
+            const now = new Date();
+            const thaiNow = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Bangkok"}));
+            
+            // คำนวณเวลาล่วงหน้า
+            const futureTime = new Date(thaiNow);
+            futureTime.setHours(futureTime.getHours() + hoursInput);
+            futureTime.setMinutes(futureTime.getMinutes() + minutesInput);
+            
+            // แสดงผลลัพธ์
+            const futureTimeStr = new Intl.DateTimeFormat('th-TH', {
+                timeZone: 'Asia/Bangkok',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).format(futureTime);
+            
+            const futureDateStr = new Intl.DateTimeFormat('th-TH', {
+                timeZone: 'Asia/Bangkok',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }).format(futureTime);
+            
+            // คำนวณเวลาที่ต่างกัน
+            const totalMinutes = (hoursInput * 60) + minutesInput;
+            let timeDiffText = '';
+            if (hoursInput > 0 && minutesInput > 0) {
+                timeDiffText = `(${hoursInput} ชั่วโมง ${minutesInput} นาที = ${totalMinutes} นาที)`;
+            } else if (hoursInput > 0) {
+                timeDiffText = `(${hoursInput} ชั่วโมง = ${totalMinutes} นาที)`;
+            } else {
+                timeDiffText = `(${minutesInput} นาที)`;
+            }
+            
+            document.getElementById('futureTime').textContent = futureTimeStr;
+            document.getElementById('futureDate').textContent = futureDateStr;
+            document.getElementById('timeDifference').textContent = `เพิ่มเวลา ${timeDiffText}`;
+            document.getElementById('result').style.display = 'block';
+            
+            // เลื่อนลงไปที่ผลลัพธ์
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // อัปเดตเวลาทุกๆ วินาที
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
+        
+        // เพิ่ม Event Listener สำหรับ Enter key
+        document.getElementById('days').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateFutureTime();
+            }
+        });
+        
+        document.getElementById('hours').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateFutureTime();
+            }
+        });
+        
+        document.getElementById('minutes').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateFutureTime();
+            }
+        });
+    </script>
+</body>
+</html>
