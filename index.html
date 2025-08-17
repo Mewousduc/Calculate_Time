@@ -9,115 +9,63 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 600px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
-            box-sizing: border-box;
-        }
-        
-        * {
-            box-sizing: border-box;
         }
         
         .container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
-            width: 100%;
-            max-width: 100%;
         }
         
         h1 {
             text-align: center;
             color: #4a5568;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 30px;
-            }
+            margin-bottom: 30px;
+            font-size: 1.8em;
         }
         
         .current-time {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
         
-        @media (min-width: 768px) {
-            .current-time {
-                padding: 20px;
-                margin-bottom: 25px;
-            }
-        }
-        
         .current-time h2 {
             margin: 0 0 10px 0;
-            font-size: 1.1em;
-        }
-        
-        @media (min-width: 768px) {
-            .current-time h2 {
-                font-size: 1.3em;
-            }
+            font-size: 1.3em;
         }
         
         .time-display {
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: bold;
             margin: 5px 0;
         }
         
-        @media (min-width: 768px) {
-            .time-display {
-                font-size: 2em;
-            }
-        }
-        
         .date-display {
-            font-size: 1em;
+            font-size: 1.2em;
             opacity: 0.9;
-        }
-        
-        @media (min-width: 768px) {
-            .date-display {
-                font-size: 1.2em;
-            }
         }
         
         .input-section {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border: 2px solid #e9ecef;
         }
         
-        @media (min-width: 768px) {
-            .input-section {
-                padding: 25px;
-                margin-bottom: 25px;
-            }
-        }
-        
         .input-group {
-            margin-bottom: 15px;
-        }
-        
-        @media (min-width: 768px) {
-            .input-group {
-                margin-bottom: 20px;
-            }
+            margin-bottom: 20px;
         }
         
         label {
@@ -129,31 +77,12 @@
         
         input[type="number"] {
             width: 100%;
-            padding: 15px 12px;
+            padding: 12px;
             border: 2px solid #dee2e6;
             border-radius: 10px;
-            font-size: 18px;
+            font-size: 16px;
             box-sizing: border-box;
             transition: border-color 0.3s ease;
-            -webkit-appearance: none;
-            -moz-appearance: textfield;
-            background-color: white;
-            min-height: 50px;
-        }
-        
-        /* ซ่อน spinner arrows ใน WebKit browsers */
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        
-        @media (min-width: 768px) {
-            input[type="number"] {
-                font-size: 16px;
-                padding: 12px;
-                min-height: auto;
-            }
         }
         
         input[type="number"]:focus {
@@ -164,13 +93,7 @@
         
         .input-row {
             display: flex;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .input-row {
-                gap: 15px;
-            }
+            gap: 15px;
         }
         
         .input-row .input-group {
@@ -181,7 +104,7 @@
             width: 100%;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 18px 15px;
+            padding: 15px;
             border: none;
             border-radius: 12px;
             font-size: 18px;
@@ -189,10 +112,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            min-height: 56px;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            user-select: none;
         }
         
         button:hover {
@@ -201,15 +120,7 @@
         }
         
         button:active {
-            transform: translateY(1px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        @media (min-width: 768px) {
-            button {
-                padding: 15px;
-                min-height: auto;
-            }
+            transform: translateY(0);
         }
         
         .result {
@@ -268,14 +179,10 @@
         </div>
         
         <div class="help-text">
-            💡 <strong>วิธีใช้:</strong> ใส่จำนวนวัน ชั่วโมง และ/หรือนาทีที่ต้องการดูล่วงหน้า เช่น ใส่ 1 วัน 2 ชั่วโมง 30 นาที หรือใส่แค่ 90 นาที ก็ได้
+            💡 <strong>วิธีใช้:</strong> ใส่จำนวนชั่วโมงและ/หรือนาทีที่ต้องการดูล่วงหน้า เช่น ใส่ 2 ชั่วโมง 30 นาที หรือใส่แค่ 90 นาที ก็ได้
         </div>
         
         <div class="input-section">
-            <div class="input-group">
-                <label for="days">วัน (Days)</label>
-                <input type="number" id="days" min="0" placeholder="0" value="0">
-            </div>
             <div class="input-row">
                 <div class="input-group">
                     <label for="hours">ชั่วโมง (Hours)</label>
@@ -388,12 +295,6 @@
         setInterval(updateCurrentTime, 1000);
         
         // เพิ่ม Event Listener สำหรับ Enter key
-        document.getElementById('days').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                calculateFutureTime();
-            }
-        });
-        
         document.getElementById('hours').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 calculateFutureTime();
